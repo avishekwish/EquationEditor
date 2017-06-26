@@ -1,0 +1,75 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<EquationEditor.Models.EquationFile>
+
+@{
+    ViewBag.Title = "Browse";
+}
+
+<h2>Browse</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            EquationFileId
+        </th>
+        <th>
+            UserIp
+        </th>
+        <th>
+            BrowserName
+        </th>
+        <th>
+            InsertDate
+        </th>
+        <th>
+            UpdateDate
+        </th>
+        <th>
+            DownLoadCount
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EquationFileId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserIp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrowserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InsertDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DownLoadCount)
+        </td>
+        <td>
+          
+            <input type="button" onclick="javascript:DisplayinCanvas(@item.EquationFileId,@item.Equationfile1);" value="Details" />|
+            <a href="/SaveImages/@string.Concat(item.EquationFileId,".bmp")" target="_blank">Image</a>|
+            @Html.ActionLink("Delete", "Delete", new { id = item.EquationFileId })
+        </td>
+    </tr>
+}
+   
+   
+</table>
+<div>
+    <span>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</span>
+    @Html.PagedListPager(Model, page => Url.Action("Browse", new { pageNumber = page }))
+</div>
+<hr />
+<div id="canvas-container" style="width:800px;height:200px;">
+    <canvas id="canvas" width="800" height="200"></canvas>
+</div>
+
+

@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EquationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EquationFile">
+    <Key>
+      <PropertyRef Name="EquationFileId" />
+    </Key>
+    <Property Name="EquationFileId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Equationfile1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserIp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BrowserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DownLoadCount" Type="Int32" />
+    <NavigationProperty Name="TagSubjectRelationEquations" Relationship="Self.FK_TagSubjectRelationEquation_EquationFile" FromRole="EquationFile" ToRole="TagSubjectRelationEquation" />
+  </EntityType>
+  <EntityType Name="ErrorLog">
+    <Key>
+      <PropertyRef Name="ErrorLogId" />
+    </Key>
+    <Property Name="ErrorLogId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="SubjectId" />
+    </Key>
+    <Property Name="SubjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="TagSubjectRelations" Relationship="Self.FK_TagSubjectRelation_Subject" FromRole="Subject" ToRole="TagSubjectRelation" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="TagId" />
+    </Key>
+    <Property Name="TagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TagName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TagType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="TagValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsDisplayed" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="TagSubjectRelations" Relationship="Self.FK_Tag_TagSubjectRelation" FromRole="Tag" ToRole="TagSubjectRelation" />
+  </EntityType>
+  <EntityType Name="TagSubjectRelation">
+    <Key>
+      <PropertyRef Name="TagSubjectRelationShipId" />
+    </Key>
+    <Property Name="TagSubjectRelationShipId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="SubjectId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK_TagSubjectRelation_Subject" FromRole="TagSubjectRelation" ToRole="Subject" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_Tag_TagSubjectRelation" FromRole="TagSubjectRelation" ToRole="Tag" />
+    <NavigationProperty Name="TagSubjectRelationEquations" Relationship="Self.FK_TagSubjectRelationEquation_TagSubjectRelationEquation" FromRole="TagSubjectRelation" ToRole="TagSubjectRelationEquation" />
+  </EntityType>
+  <EntityType Name="TagSubjectRelationEquation">
+    <Key>
+      <PropertyRef Name="TagSubjectRelationEquationId" />
+    </Key>
+    <Property Name="TagSubjectRelationEquationId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EquationId" Type="Int64" Nullable="false" />
+    <Property Name="TagSubjectRelationId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="EquationFile" Relationship="Self.FK_TagSubjectRelationEquation_EquationFile" FromRole="TagSubjectRelationEquation" ToRole="EquationFile" />
+    <NavigationProperty Name="TagSubjectRelation" Relationship="Self.FK_TagSubjectRelationEquation_TagSubjectRelationEquation" FromRole="TagSubjectRelationEquation" ToRole="TagSubjectRelation" />
+  </EntityType>
+  <Association Name="FK_TagSubjectRelationEquation_EquationFile">
+    <End Role="EquationFile" Type="Self.EquationFile" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TagSubjectRelationEquation" Type="Self.TagSubjectRelationEquation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EquationFile">
+        <PropertyRef Name="EquationFileId" />
+      </Principal>
+      <Dependent Role="TagSubjectRelationEquation">
+        <PropertyRef Name="EquationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagSubjectRelation_Subject">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+    <End Role="TagSubjectRelation" Type="Self.TagSubjectRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="TagSubjectRelation">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tag_TagSubjectRelation">
+    <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+    <End Role="TagSubjectRelation" Type="Self.TagSubjectRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="TagId" />
+      </Principal>
+      <Dependent Role="TagSubjectRelation">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagSubjectRelationEquation_TagSubjectRelationEquation">
+    <End Role="TagSubjectRelation" Type="Self.TagSubjectRelation" Multiplicity="1" />
+    <End Role="TagSubjectRelationEquation" Type="Self.TagSubjectRelationEquation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TagSubjectRelation">
+        <PropertyRef Name="TagSubjectRelationShipId" />
+      </Principal>
+      <Dependent Role="TagSubjectRelationEquation">
+        <PropertyRef Name="TagSubjectRelationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EquationEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EquationFiles" EntityType="Self.EquationFile" />
+    <EntitySet Name="ErrorLogs" EntityType="Self.ErrorLog" />
+    <EntitySet Name="Subjects" EntityType="Self.Subject" />
+    <EntitySet Name="Tags" EntityType="Self.Tag" />
+    <EntitySet Name="TagSubjectRelations" EntityType="Self.TagSubjectRelation" />
+    <EntitySet Name="TagSubjectRelationEquations" EntityType="Self.TagSubjectRelationEquation" />
+    <AssociationSet Name="FK_TagSubjectRelationEquation_EquationFile" Association="Self.FK_TagSubjectRelationEquation_EquationFile">
+      <End Role="EquationFile" EntitySet="EquationFiles" />
+      <End Role="TagSubjectRelationEquation" EntitySet="TagSubjectRelationEquations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagSubjectRelation_Subject" Association="Self.FK_TagSubjectRelation_Subject">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="TagSubjectRelation" EntitySet="TagSubjectRelations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tag_TagSubjectRelation" Association="Self.FK_Tag_TagSubjectRelation">
+      <End Role="Tag" EntitySet="Tags" />
+      <End Role="TagSubjectRelation" EntitySet="TagSubjectRelations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagSubjectRelationEquation_TagSubjectRelationEquation" Association="Self.FK_TagSubjectRelationEquation_TagSubjectRelationEquation">
+      <End Role="TagSubjectRelation" EntitySet="TagSubjectRelations" />
+      <End Role="TagSubjectRelationEquation" EntitySet="TagSubjectRelationEquations" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

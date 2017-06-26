@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EquationModelStoreContainer" CdmEntityContainer="EquationEntities">
+    <EntitySetMapping Name="EquationFiles">
+      <EntityTypeMapping TypeName="EquationModel.EquationFile">
+        <MappingFragment StoreEntitySet="EquationFile">
+          <ScalarProperty Name="EquationFileId" ColumnName="EquationFileId" />
+          <ScalarProperty Name="Equationfile1" ColumnName="Equationfile" />
+          <ScalarProperty Name="UserIp" ColumnName="UserIp" />
+          <ScalarProperty Name="BrowserName" ColumnName="BrowserName" />
+          <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="DownLoadCount" ColumnName="DownLoadCount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ErrorLogs">
+      <EntityTypeMapping TypeName="EquationModel.ErrorLog">
+        <MappingFragment StoreEntitySet="ErrorLog">
+          <ScalarProperty Name="ErrorLogId" ColumnName="ErrorLogId" />
+          <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+          <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subjects">
+      <EntityTypeMapping TypeName="EquationModel.Subject">
+        <MappingFragment StoreEntitySet="Subject">
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tags">
+      <EntityTypeMapping TypeName="EquationModel.Tag">
+        <MappingFragment StoreEntitySet="Tag">
+          <ScalarProperty Name="TagId" ColumnName="TagId" />
+          <ScalarProperty Name="TagName" ColumnName="TagName" />
+          <ScalarProperty Name="TagType" ColumnName="TagType" />
+          <ScalarProperty Name="TagValue" ColumnName="TagValue" />
+          <ScalarProperty Name="IsDisplayed" ColumnName="IsDisplayed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagSubjectRelations">
+      <EntityTypeMapping TypeName="EquationModel.TagSubjectRelation">
+        <MappingFragment StoreEntitySet="TagSubjectRelation">
+          <ScalarProperty Name="TagSubjectRelationShipId" ColumnName="TagSubjectRelationShipId" />
+          <ScalarProperty Name="TagId" ColumnName="TagId" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagSubjectRelationEquations">
+      <EntityTypeMapping TypeName="EquationModel.TagSubjectRelationEquation">
+        <MappingFragment StoreEntitySet="TagSubjectRelationEquation">
+          <ScalarProperty Name="TagSubjectRelationEquationId" ColumnName="TagSubjectRelationEquationId" />
+          <ScalarProperty Name="EquationId" ColumnName="EquationId" />
+          <ScalarProperty Name="TagSubjectRelationId" ColumnName="TagSubjectRelationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

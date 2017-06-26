@@ -1,0 +1,54 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* set custom style*/
+ .draggable {
+        font-size: 27px;
+        font-style:normal;
+        font-family:Arial;
+        color:black;
+    }
+
+    #source {
+        color: blue;
+        border: 1px solid black;
+    }
+
+
+    #canvas-container {
+        position: relative;
+        box-shadow: 0 0 5px 1px black;
+        margin: 10px auto;
+        border: 5px solid transparent;
+    }
+     .inl-bl {
+        display: inline-block;
+    }
+
+
+     /*color picker style*/
+div.color-picker { border-left: 1px solid #000; border-top: 1px solid #000; position: absolute; left: 0px; top: 0px; padding: 0px; }
+div.color-picker ul { list-style: none; padding: 0px; margin: 0px; float: left; }
+div.color-picker ul li { display: block; width: 15px; height: 15px; border-right: 1px solid #000; border-bottom: 1px solid #000; margin: 0px; float: left; cursor: pointer; }
